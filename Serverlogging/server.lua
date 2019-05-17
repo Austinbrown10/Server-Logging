@@ -7,7 +7,7 @@ local DISCORD_IMAGE = "https://pbs.twimg.com/profile_images/847824193899167744/J
 
 --DON'T EDIT BELOW THIS
 
-PerformHttpRequest(DISCORD_WEBHOOK, function(err, text, headers) end, 'POST', json.encode({username = DISCORD_NAME, content = "**Discord Webhook is ONLINE**", avatar_url = DISCORD_IMAGE}), { ['Content-Type'] = 'application/json' })
+PerformHttpRequest(DISCORD_WEBHOOK, function(err, text, headers) end, 'POST', json.encode({username = DISCORD_NAME, content = "Discord Webhook is **ONLINE**", avatar_url = DISCORD_IMAGE}), { ['Content-Type'] = 'application/json' })
 
 AddEventHandler('chatMessage', function(source, name, message) 
 
@@ -82,15 +82,14 @@ function stringsplit(input, seperator)
 end
 
 function sendToDiscord(name, message, color)
-  local connect = {
-        {
+	local connect = {
             ["color"] = color,
             ["title"] = "**".. name .."**",
             ["description"] = message,
             ["footer"] = {
+                ["icon_url"] = DISCORD_IMAGE,
                 ["text"] = "Made by Tazio",
             },
-        }
-    }
+	}
   PerformHttpRequest(DISCORD_WEBHOOK, function(err, text, headers) end, 'POST', json.encode({username = DISCORD_NAME, embeds = connect, avatar_url = DISCORD_IMAGE}), { ['Content-Type'] = 'application/json' })
 end
